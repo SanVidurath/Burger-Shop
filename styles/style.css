@@ -1,15 +1,15 @@
 /* Navbar */
-.navbar{
+.navbar {
   background-color: bisque;
 }
 
-.navbar .navbar-brand img{
+.navbar .navbar-brand img {
   width: 50px;
   border-radius: 50%;
   background-color: black;
 }
 
-.navbar .navbar-active{
+.navbar .navbar-active {
   font-weight: bold;
   text-decoration: underline;
 }
@@ -27,11 +27,27 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* bio section */
+.bio img {
+  border-radius: 20%;
+}
+
+.bio .bio-text {
+  font-family: "Playwrite AU SA", serif;
+  font-optical-sizing: auto;
+  font-weight: bold;
+  font-style: normal;
+  font-size: 18px;
+  line-height: 35px;
+}
 
 
 /* Carousel */
