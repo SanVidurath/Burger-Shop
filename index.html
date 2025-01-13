@@ -26,35 +26,36 @@
   </head>
   <body>
     <!-- Navbar starts -->
-    <div id="navbarPage">
+    <section id="navbarPage">
       <div class="loader"></div>
-    </div>
+    </section>
     <!-- Navbar ends -->
 
     <!-- Bio starts -->
-    <div class="bio m-5">
+    <section class="bio m-5">
       <div class="container">
-          <img
-            src="./images/burger-art.png"
-            alt="shop-image"
-            class="img-fluid me-5 mb-4"
-          />
-          <h6 class="bio-text">
-            Welcome to MOS Burgers! We are your locally-owned, go-to spot for
-            delicious burgers, submarines, and soft drinks, proudly serving our
-            community with love and flavor. At MOS Burgers, we believe in making
-            every dining experience special. That's why we offer a variety of
-            promotional deals and discounts to add a little extra joy to your
-            meal. Whether you're craving juicy burgers, hearty submarines,
-            savory pasta, crispy fries, or refreshing beverages, we've got
-            something to satisfy every taste bud. Come on in and enjoy the warm,
-            friendly atmosphere and the unbeatable flavors we’re known for.
-          </h6>
+        <img
+          src="./images/burger-art.png"
+          alt="shop-image"
+          class="img-fluid me-5 mb-4"
+        />
+        <h6 class="bio-text">
+          Welcome to MOS Burgers! We are your locally-owned, go-to spot for
+          delicious burgers, submarines, and soft drinks, proudly serving our
+          community with love and flavor. At MOS Burgers, we believe in making
+          every dining experience special. That's why we offer a variety of
+          promotional deals and discounts to add a little extra joy to your
+          meal. Whether you're craving juicy burgers, hearty submarines, savory
+          pasta, crispy fries, or refreshing beverages, we've got something to
+          satisfy every taste bud. Come on in and enjoy the warm, friendly
+          atmosphere and the unbeatable flavors we’re known for.
+        </h6>
       </div>
-    </div>
+    </section>
     <!-- Bio ends -->
 
     <!-- Carousel Starts -->
+     <section class="carousel-section">
     <div
       id="carouselExampleControls"
       class="carousel slide"
@@ -117,15 +118,43 @@
         <span class="visually-hidden">Next</span>
       </button>
     </div>
+  </section>
     <!-- Carousel Ends -->
 
     <!-- Feedback starts -->
-    <div class="container my-5 text-center">
-      <div class="row">
-        <h1>Feedback Form</h1>
+    <section class="feedback m-5">
+      
+      <div class="container my-5 text-center">
+        <div class="row">
+          <h1>Feedback Form</h1>
+        </div>
       </div>
-    </div>
+      <p class="text-center">Reach out to us 😊</p>
+      <form>
+        <div class="mb-3">
+          
+          <input type="email" class="form-control" id="nameTextInput" aria-describedby="nameHelp" placeholder="Your name...">
+          
+        </div>
+        <div class="mb-3">
+          <textarea class="form-control" rows="3" placeholder="Your feedback..."></textarea>
+          
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </section>
+
     <!-- Feedback ends -->
+
+    <!-- Footer Starts -->
+     <section class="footer">
+        <div class="container my-5">
+          <div class="row">
+            <p class="text-center text-muted">Copyright@ IDC112</p>
+          </div>
+        </div>
+     </section>
+     <!-- Footer Ends -->
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
