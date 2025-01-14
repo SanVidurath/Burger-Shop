@@ -57,6 +57,7 @@
   width: 75vw;
   margin: 0 auto;
 }
+
 .carousel-inner {
   height: 25vw;
   padding-bottom: 25%; /* this sets carousel aspect ratio (4:1 here) */
@@ -81,8 +82,27 @@
 }
 
 
-/* Feddback section */
+/* Feedback section */
 .feedback form{
   padding: 3%;
   background-color: #c29201;
+}
+
+.feedback .submit-btn{
+  text-align: center;
+}
+
+
+/* Media Queries */
+@media (max-width:400px) {
+  .bio{
+    text-align: center;
+
+  }
+  .bio img {
+    width: 100%;
+  }
+  .carousel-inner {
+    height: 50vw;
+  }
 }
