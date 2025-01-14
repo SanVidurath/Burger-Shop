@@ -79,3 +79,10 @@
 .carousel-control-prev /*, .carousel-indicators */ {
   color: aqua;
 }
+
+
+/* Feddback section */
+.feedback form{
+  padding: 3%;
+  background-color: #c29201;
+}
