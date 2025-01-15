@@ -67,11 +67,11 @@ items.forEach((item) => {
   document.getElementById("item-cards").innerHTML += `
   <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 my-2">
             <div class="card">
-              <img src="..." class="card-img-top" alt="food" />
+              <img src="./images/submarine-2.png" class="card-img-top" alt="food" />
               <div class="card-body">
-                <h5 class="card-title">${item.itemname}</h5>
-                <p class="card-text">Price</p>
-                <a href="#" class="btn btn-primary">Add to cart</a>
+                <h5 class="card-title text-center">${item.itemname}</h5>
+                <p class="card-text text-center">Rs.${item.price}</p>
+                <a href="#" class="btn btn-success">Add to cart</a>
               </div>
             </div>
           </div>`;
