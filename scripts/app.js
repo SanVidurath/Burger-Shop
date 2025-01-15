@@ -1,12 +1,14 @@
+import items from "./items.js";
+
 window.addEventListener("load", (event) => {
-  loadNavBar();  
-  const navLinkElements = document.querySelectorAll('.nav-link');
+  loadNavBar();
+  const navLinkElements = document.querySelectorAll(".nav-link");
   const windowPathname = window.location.pathname;
-  navLinkElements.forEach(navLink=>{
-    if(navLink.href.includes(windowPathname)){
-        navLink.classList.add('navbar-active')
+  navLinkElements.forEach((navLink) => {
+    if (navLink.href.includes(windowPathname)) {
+      navLink.classList.add("navbar-active");
     }
-  })
+  });
 });
 
 function loadNavBar() {
@@ -61,4 +63,16 @@ function loginPage() {
   Swal.fire("Under construction!");
 }
 
-
+items.forEach((item) => {
+  document.getElementById("item-cards").innerHTML += `
+  <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 my-2">
+            <div class="card">
+              <img src="..." class="card-img-top" alt="food" />
+              <div class="card-body">
+                <h5 class="card-title">${item.itemname}</h5>
+                <p class="card-text">Price</p>
+                <a href="#" class="btn btn-primary">Add to cart</a>
+              </div>
+            </div>
+          </div>`;
+});
