@@ -39,13 +39,13 @@ function loadNavBar() {
           <a class="nav-link" href="./items.html">Items</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="./cart.html">Shopping Cart</a>
+          <a class="nav-link" href="./cart.html">Cart</a>
         </li>
       </ul>
       <button
         class="btn btn-outline-dark ms-2"
         type="submit"
-        onclick="loginPage()"
+        id="loginBtn"
       >
         LogIn
       </button>
@@ -53,11 +53,10 @@ function loadNavBar() {
   </div>
 </nav>
 `;
+document.getElementById("loginBtn").addEventListener("click", loginPage);
 }
 
-function printPageName() {
-  console.log("Hi");
-}
+
 
 function loginPage() {
   Swal.fire("Under construction!");
@@ -66,13 +65,32 @@ function loginPage() {
 items.forEach((item) => {
   document.getElementById("item-cards").innerHTML += `
   <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 my-2">
-            <div class="card">
-              <img src="./images/submarine-2.png" class="card-img-top" alt="food" />
-              <div class="card-body">
+            <div class="card h-100">
+              <img src=${selectImage(
+                item.itemtype
+              )} class="card-img-top" alt="food" />
+              <div class="card-body text-end">
                 <h5 class="card-title text-center">${item.itemname}</h5>
                 <p class="card-text text-center">Rs.${item.price}</p>
-                <a href="#" class="btn btn-success">Add to cart</a>
+                <a href="#" class="btn btn-success"><i class="fa-solid fa-cart-shopping">+</i></a>
               </div>
             </div>
           </div>`;
 });
+
+function selectImage(itemtype) {
+  switch (itemtype) {
+    case "Burger":
+      return "./images/burger-3.jpg";
+    case "Submarine":
+      return "./images/submarine-2.png";
+    case "Fries":
+      return "./images/fries-2.png";
+    case "Chicken":
+      return "./images/chicken.png";
+    case "Pasta":
+      return "./images/pasta-2.png";
+    case "Drinks":
+      return "./images/beverages-2.png";
+  }
+}
