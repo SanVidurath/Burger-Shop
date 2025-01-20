@@ -1,11 +1,13 @@
 import items from "./items.js";
 
-window.addEventListener("load", (event) => {
+
+document.addEventListener("DOMContentLoaded", (event) => {
   loadNavBar();
   const navLinkElements = document.querySelectorAll(".nav-link");
   const windowPathname = window.location.pathname;
   navLinkElements.forEach((navLink) => {
     if (navLink.href.includes(windowPathname)) {
+      if(navLink.classList.contains("navbar-active")){return}
       navLink.classList.add("navbar-active");
     }
   });
