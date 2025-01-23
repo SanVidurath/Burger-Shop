@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   const windowPathname = window.location.pathname;
   navLinkElements.forEach((navLink) => {
     if (navLink.href.includes(windowPathname)) {
-      navLink.classList.add("navbar-active");
+      //navLink.classList.add("navbar-active");
     } else {
       navLink.classList.remove("navbar-active");
     }
