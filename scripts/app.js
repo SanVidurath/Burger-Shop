@@ -3,9 +3,9 @@ import items from "./items.js";
 document.addEventListener("DOMContentLoaded", (event) => {
   loadNavBar();
   const navLinkElements = document.querySelectorAll(".nav-link");
-  const windowPathname = window.location.pathname;
+  const currentUrl = window.location.href;
   navLinkElements.forEach((navLink) => {
-    if (navLink.href.includes(windowPathname)) {
+    if (currentUrl.includes(navLink.href)) {
       //navLink.classList.add("navbar-active");
     } else {
       navLink.classList.remove("navbar-active");
