@@ -1,14 +1,14 @@
 import items from "./items.js";
 
-
 document.addEventListener("DOMContentLoaded", (event) => {
   loadNavBar();
   const navLinkElements = document.querySelectorAll(".nav-link");
   const windowPathname = window.location.pathname;
   navLinkElements.forEach((navLink) => {
     if (navLink.href.includes(windowPathname)) {
-      if(navLink.classList.contains("navbar-active")){return}
       navLink.classList.add("navbar-active");
+    } else {
+      navLink.classList.remove("navbar-active");
     }
   });
 });
@@ -55,10 +55,8 @@ function loadNavBar() {
   </div>
 </nav>
 `;
-document.getElementById("loginBtn").addEventListener("click", loginPage);
+  document.getElementById("loginBtn").addEventListener("click", loginPage);
 }
-
-
 
 function loginPage() {
   Swal.fire("Under construction!");
