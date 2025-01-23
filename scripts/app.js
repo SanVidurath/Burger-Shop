@@ -2,6 +2,10 @@ import items from "./items.js";
 
 document.addEventListener("DOMContentLoaded", (event) => {
   loadNavBar();
+  setActiveNavLink();
+});
+
+function setActiveNavLink() {
   const navLinkElements = document.querySelectorAll(".nav-link");
   const currentUrl = window.location.href;
   navLinkElements.forEach((navLink) => {
@@ -11,7 +15,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
       navLink.classList.remove("navbar-active");
     }
   });
-});
+}
 
 function loadNavBar() {
   document.getElementById(
