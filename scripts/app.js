@@ -8,14 +8,21 @@ document.addEventListener("DOMContentLoaded", (event) => {
 function setActiveNavLink() {
   const navLinkElements = document.querySelectorAll(".nav-link");
   const currentUrl = window.location.href;
-  console.log(currentUrl);
-  navLinkElements.forEach((navLink) => {
-    if (currentUrl.includes(navLink.href)) {
-      navLink.classList.add("navbar-active");
-    } else {
-      navLink.classList.remove("navbar-active");
-    }
-  });
+  loadNavLinkActive(navLinkElements, currentUrl);
+}
+
+function loadNavLinkActive(navLinkElements, currentUrl){
+  if(currentUrl==="https://sanvidurath.github.io/Burger-Shop/"){
+    document.getElementById("home").classList.add("navbar-active");
+  }else{
+    navLinkElements.forEach((navLink) => {
+      if (currentUrl.includes(navLink.href)) {
+        navLink.classList.add("navbar-active");
+      } else {
+        navLink.classList.remove("navbar-active");
+      }
+    });
+  }
 }
 
 function loadNavBar() {
@@ -40,7 +47,7 @@ function loadNavBar() {
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="./index.html">Home</a>
+          <a class="nav-link" id="home" href="./index.html">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="./items.html">Items</a>
