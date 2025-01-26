@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 function setActiveNavLink() {
   const navLinkElements = document.querySelectorAll(".nav-link");
   const currentUrl = window.location.href;
+  console.log(currentUrl);
   navLinkElements.forEach((navLink) => {
     if (currentUrl.includes(navLink.href)) {
       navLink.classList.add("navbar-active");
