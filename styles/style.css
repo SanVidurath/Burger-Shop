@@ -51,7 +51,6 @@
   line-height: 35px;
 }
 
-
 /* Carousel */
 .carousel {
   width: 75vw;
@@ -81,39 +80,65 @@
   color: aqua;
 }
 
-
 /* Feedback section */
-.feedback form{
+.feedback form {
   padding: 3%;
   background-color: #c29201;
 }
 
-.feedback .submit-btn{
+.feedback .submit-btn {
   text-align: center;
 }
 
 /* Items Page */
-#item-cards img{
+.dropdown select {
+  width: 25%;
+}
+
+#item-cards img {
   height: 200px;
 }
 
-#item-cards .card .card-body a{
+#item-cards .card .card-body a {
   color: black;
   font-size: 15px;
   text-align: right;
 }
 
+#item-cards .card .parentContainer {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+#item-cards .card .parentContainer .top-left {
+  position: absolute;
+  top: 10px;
+  left: 15px;
+}
+
+#item-cards .card .parentContainer .bottom-right{
+  position: absolute;
+  bottom: 10px;
+  right: 15px;
+  background-color: white;
+  color: black;
+}
+
+.set-padding{
+  padding: 1%;
+}
+
 /* Cart Page */
-.cart .tableData{
+.cart .tableData {
   margin: 0 5%;
   overflow-x: auto;
 }
 
 /* Media Queries */
-@media (max-width:400px) {
-  .bio{
+@media (max-width: 400px) {
+  .bio {
     text-align: center;
-
   }
   .bio img {
     width: 100%;
@@ -121,13 +146,17 @@
   .carousel-inner {
     height: 50vw;
   }
-  #item-cards{
+  .dropdown select {
+    width: 50%;
+  }
+
+  #item-cards {
     padding: 0 10%;
   }
 }
 
-@media (max-width:576px) and (min-width:400px){
-  #item-cards{
+@media (max-width: 576px) and (min-width: 400px) {
+  #item-cards {
     padding: 0 20%;
   }
 }

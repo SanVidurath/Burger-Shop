@@ -3,14 +3,17 @@ const selectedCategory = document.querySelector(".itemCategories");
 const tableData = document.getElementById("tableData");
 const itemCards = document.getElementById("item-cards");
 
-document.addEventListener("DOMContentLoaded", (event) => {
+var cartItems = [];
+
+document.addEventListener("DOMContentLoaded", () => {
   loadNavBar();
   setActiveNavLink();
-  if(itemCards){
+  if (itemCards) {
     loadItems();
-  }else{
+  } else {
     console.log("Element with ID 'item-cards' not found.");
   }
+  loadTableData();
 });
 
 function setActiveNavLink() {
@@ -83,38 +86,74 @@ function loginPage() {
 }
 
 function loadItems() {
+  itemCards.innerHTML = "";
+
   items.forEach((item) => {
-    itemCards.innerHTML += `
-    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 my-2">
+    const itemCard = document.createElement("div");
+
+    itemCard.classList.add(
+      "col-lg-3",
+      "col-md-4",
+      "col-sm-6",
+      "col-xs-12",
+      "my-2"
+    );
+
+    itemCard.innerHTML += `
               <div class="card h-100">
+              <div class="parentContainer">
+              <div class="top-left">${item.itemcode}</div>
                 <img src=${selectImage(
                   item.itemtype
-                )} class="card-img-top" alt="food" />
+                )} class="card-img-top" alt="food" />                    
+                    <div class="bottom-right discount-text" discount="${
+                      item.discount
+                    }">${item.discount > 0 ? item.discount + "% off" : ""}</div>
+                </div>
+
                 <div class="card-body text-end">
                   <h5 class="card-title text-center">${item.itemname}</h5>
                   <p class="card-text text-center">Rs.${item.price}</p>
                   <a href="#" class="btn btn-success"><i class="fa-solid fa-cart-shopping">+</i></a>
                 </div>
               </div>
-            </div>`;
+            `;
+
+    itemCards.appendChild(itemCard);
   });
+
+  document.querySelectorAll(".discount-text").forEach((element) => {
+    if (parseInt(element.getAttribute("discount")) > 0) {
+      element.classList.add("set-padding");
+    }
+  });
+
+  document.querySelectorAll(".btn-success").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      const itemCode = event.target.closest(".card").querySelector(".top-left").innerText;
+      const item = items.find((i) => i.itemcode === itemCode);
+  
+      let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+      cartItems.push(item);
+      localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  
+      Swal.fire("Added to cart!");
+      loadTableData();
+    });
+  });
+  
 }
 
 function selectImage(itemtype) {
-  switch (itemtype) {
-    case "Burger":
-      return "./images/burger-3.jpg";
-    case "Submarine":
-      return "./images/submarine-2.png";
-    case "Fries":
-      return "./images/fries-2.png";
-    case "Chicken":
-      return "./images/chicken.png";
-    case "Pasta":
-      return "./images/pasta-2.png";
-    case "Drinks":
-      return "./images/beverages-2.png";
-  }
+  const images = {
+    Burger: "./images/burger-3.jpg",
+    Submarine: "./images/submarine-2.png",
+    Fries: "./images/fries-2.png",
+    Chicken: "./images/chicken.png",
+    Pasta: "./images/pasta-2.png",
+    Drinks: "./images/beverages-2.png",
+  };
+  return images[itemtype];
 }
 
 if (selectedCategory) {
@@ -123,116 +162,121 @@ if (selectedCategory) {
   console.log("Element with ID 'selectCategory' not found.");
 }
 
-
 function getSelectedValue() {
-  document.getElementById("item-cards").innerHTML = "";
-  var itemCategory =
+  itemCards.innerHTML = "";
+  const itemCategory =
     selectedCategory.options[selectedCategory.selectedIndex].text;
-  switch (itemCategory) {
-    case "Burgers":
-      items
-        .filter((item) => item.itemtype === "Burger")
-        .forEach((burgerItem) => {
-          setInnerHtml(burgerItem);
-        });
-      break;
-    case "Submarines":
-      items
-        .filter((item) => item.itemtype === "Submarine")
-        .forEach((submarineItem) => {
-          setInnerHtml(submarineItem);
-        });
-      break;
-    case "Fries":
-      items
-        .filter((item) => item.itemtype === "Fries")
-        .forEach((friesItem) => {
-          setInnerHtml(friesItem);
-        });
-      break;
-    case "Pasta":
-      items
-        .filter((item) => item.itemtype === "Pasta")
-        .forEach((pastaItem) => {
-          setInnerHtml(pastaItem);
-        });
-      break;
-    case "Chicken":
-      items
-        .filter((item) => item.itemtype === "Chicken")
-        .forEach((chickenItem) => {
-          setInnerHtml(chickenItem);
-        });
-      break;
-    case "Drinks":
-      items
-        .filter((item) => item.itemtype === "Drinks")
-        .forEach((drinkItem) => {
-          setInnerHtml(drinkItem);
-        });
-      break;
-    case "All":
-      loadItems();
-      break;
-  }
+  const filteredItems =
+    itemCategory === "All"
+      ? items
+      : items.filter((item) => item.itemtype === itemCategory);
+  filteredItems.forEach((item) => setInnerHtml(item));
 }
 
-function setInnerHtml(itemCategory) {
-  document.getElementById("item-cards").innerHTML += `
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 my-2">
+function setInnerHtml(item) {
+  const itemCard = document.createElement("div");
+
+  itemCard.classList.add(
+    "col-lg-3",
+    "col-md-4",
+    "col-sm-6",
+    "col-xs-12",
+    "my-2"
+  );
+
+  itemCard.innerHTML += `
                   <div class="card h-100">
+                  <div class="parentContainer">
+                  <div class="top-left">${item.itemcode}</div>
                     <img src=${selectImage(
-                      itemCategory.itemtype
+                      item.itemtype
                     )} class="card-img-top" alt="food" />
+                    
+                    <div class="bottom-right discount-text" discount=${
+                      item.discount
+                    }>${item.discount > 0 ? item.discount + "% off" : ""}</div>
+                    </div>
                     <div class="card-body text-end">
-                      <h5 class="card-title text-center">${
-                        itemCategory.itemname
-                      }</h5>
-                      <p class="card-text text-center">Rs.${
-                        itemCategory.price
-                      }</p>
+                      <h5 class="card-title text-center">${item.itemname}</h5>
+                      <p class="card-text text-center">Rs.${item.price}</p>
                       <a href="#" class="btn btn-success"><i class="fa-solid fa-cart-shopping">+</i></a>
                     </div>
                   </div>
-                </div>`;
+                `;
+
+  itemCards.appendChild(itemCard);
+
+  document.querySelectorAll(".discount-text").forEach((element) => {
+    if (parseInt(element.getAttribute("discount")) > 0) {
+      element.classList.add("set-padding");
+    }
+  });
+
+  document.querySelectorAll(".btn-success").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      const itemCode = event.target.closest(".card").querySelector(".top-left").innerText;
+      const item = items.find((i) => i.itemcode === itemCode);
+  
+      let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+      cartItems.push(item);
+      localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  
+      Swal.fire("Added to cart!");
+      loadTableData();
+    });
+  });
+  
 }
 
+function loadTableData() {
+  const currentUrl = window.location.href;
+  var url = currentUrl.split("/");
+  if (url[url.length - 1] === "cart.html") {
+    cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+    
+    let tableContent = `
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Discount</th>
+            <th>Final Price</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="cartTableBody">
+    `;
 
-if(tableData){
-  loadTableData();
-}else{
-  console.log("Element with ID 'tableData' not found.");
-}
-
-function loadTableData(){
-  document.getElementById("tableData").innerHTML = `
-    <table class="table table-bordered table-striped">
-      <thead>
+    cartItems.forEach((item, index) => {
+      let finalPrice = item.price - (item.price * item.discount) / 100;
+      tableContent += `
         <tr>
-          <th>Image</th>
-          <th>Product</th>
-          <th>Price</th>
-          <th>Quantity</th>
-          <th>Discount</th>
-          <th>Final Price</th>
-          <th>Action</th>
+          <td><img src="${selectImage(item.itemtype)}" alt="${item.itemname}" class="img-fluid" width="50" /></td>
+          <td>${item.itemname}</td>
+          <td>Rs.${item.price.toFixed(2)}</td>
+          <td><input type="number" class="form-control quantity-input" data-index="${index}" value="1" min="1" /></td>
+          <td>${item.discount}%</td>
+          <td>Rs.${finalPrice.toFixed(2)}</td>
+          <td><button class="btn btn-danger delete-item" data-index="${index}">Delete</button></td>
         </tr>
-      </thead>
-      <tbody id="cartTableBody">
-        <tr>
-          <td>
-            <img src="https://via.placeholder.co/100" alt="Product Image" class="img-fluid" />
-          </td>
-          <td>Product 1</td>
-          <td>$0.00</td>
-          <td><input type="number" class="form-control" min="1" /></td>
-          <td>0%</td>
-          <td>$0.00</td>
-          <td><button class="btn btn-danger">Delete</button></td>
-        </tr>
-      </tbody>
-    </table>
-  `;
+      `;
+    });
 
+    tableContent += `</tbody></table>`;
+    tableData.innerHTML = tableContent;
 
+    document.querySelectorAll(".delete-item").forEach((button) => {
+      button.addEventListener("click", deleteItem);
+    });
+
+    function deleteItem(event) {
+      const index = event.target.getAttribute("data-index");
+      cartItems.splice(index, 1);
+      localStorage.setItem("cartItems", JSON.stringify(cartItems));
+      loadTableData();
+    }
+  }
 }
