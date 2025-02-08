@@ -1,10 +1,16 @@
 import items from "./items.js";
 const selectedCategory = document.querySelector(".itemCategories");
+const tableData = document.getElementById("tableData");
+const itemCards = document.getElementById("item-cards");
 
 document.addEventListener("DOMContentLoaded", (event) => {
   loadNavBar();
   setActiveNavLink();
-  loadItems();
+  if(itemCards){
+    loadItems();
+  }else{
+    console.log("Element with ID 'item-cards' not found.");
+  }
 });
 
 function setActiveNavLink() {
@@ -78,7 +84,7 @@ function loginPage() {
 
 function loadItems() {
   items.forEach((item) => {
-    document.getElementById("item-cards").innerHTML += `
+    itemCards.innerHTML += `
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 my-2">
               <div class="card h-100">
                 <img src=${selectImage(
@@ -111,7 +117,12 @@ function selectImage(itemtype) {
   }
 }
 
-selectedCategory.addEventListener("change", getSelectedValue);
+if (selectedCategory) {
+  selectedCategory.addEventListener("change", getSelectedValue);
+} else {
+  console.log("Element with ID 'selectCategory' not found.");
+}
+
 
 function getSelectedValue() {
   document.getElementById("item-cards").innerHTML = "";
@@ -184,4 +195,44 @@ function setInnerHtml(itemCategory) {
                     </div>
                   </div>
                 </div>`;
+}
+
+
+if(tableData){
+  loadTableData();
+}else{
+  console.log("Element with ID 'tableData' not found.");
+}
+
+function loadTableData(){
+  document.getElementById("tableData").innerHTML = `
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Discount</th>
+          <th>Final Price</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="cartTableBody">
+        <tr>
+          <td>
+            <img src="https://via.placeholder.co/100" alt="Product Image" class="img-fluid" />
+          </td>
+          <td>Product 1</td>
+          <td>$0.00</td>
+          <td><input type="number" class="form-control" min="1" /></td>
+          <td>0%</td>
+          <td>$0.00</td>
+          <td><button class="btn btn-danger">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+  `;
+
+
 }

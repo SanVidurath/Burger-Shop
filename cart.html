@@ -33,76 +33,22 @@
     <!-- Navbar ends -->
 
     <!-- Cart starts -->
-    <div class="container mt-5">
-      <div class="row">
-        <div class="col-md-12">
-          <h2 class="text-center mb-4">Shopping Cart</h2>
-          <table class="table table-bordered table-striped">
-            <thead>
-              <tr>
-                <th>Image</th>
-                <th>Product</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Discount</th>
-                <th>Final Price</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <img
-                    src="https://via.placeholder.com/100"
-                    alt="Product Image"
-                    class="img-fluid"
-                  />
-                </td>
-                <td>Product 1</td>
-                <td>$0.00</td>
-                <td><input type="number" class="form-control" min="1" /></td>
-                <td>0%</td>
-                <td>$0.00</td>
-                <td><button class="btn btn-danger">Delete</button></td>
-              </tr>
-              <tr>
-                <td>
-                  <img
-                    src="https://via.placeholder.com/100"
-                    alt="Product Image"
-                    class="img-fluid"
-                  />
-                </td>
-                <td>Product 2</td>
-                <td>$0.00</td>
-                <td><input type="number" class="form-control" min="1" /></td>
-                <td>0%</td>
-                <td>$0.00</td>
-                <td><button class="btn btn-danger">Delete</button></td>
-              </tr>
-              <tr>
-                <td>
-                  <img
-                    src="https://via.placeholder.com/100"
-                    alt="Product Image"
-                    class="img-fluid"
-                  />
-                </td>
-                <td>Product 3</td>
-                <td>$0.00</td>
-                <td><input type="number" class="form-control" min="1" /></td>
-                <td>0%</td>
-                <td>$0.00</td>
-                <td><button class="btn btn-danger">Delete</button></td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="text-center">
-            <button class="btn btn-primary rounded-5">Proceed to Checkout</button>
+    <section class="cart" id="cart">
+      <div class="container mt-5">
+        <div class="row">
+          <div class="col-md-12">
+            <h2 class="text-center mb-4">Shopping Cart</h2>
+            <div id="tableData"></div>
+            <div class="text-center">
+              <button class="btn btn-primary rounded-5">
+                Proceed to Checkout
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
+
     <!-- Cart ends -->
 
     <script
