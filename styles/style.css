@@ -103,6 +103,12 @@
   text-align: right;
 }
 
+/* Cart Page */
+.cart .tableData{
+  margin: 0 5%;
+  overflow-x: auto;
+}
+
 /* Media Queries */
 @media (max-width:400px) {
   .bio{
