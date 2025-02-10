@@ -2,6 +2,7 @@ import items from "./items.js";
 const selectedCategory = document.querySelector(".itemCategories");
 const tableData = document.getElementById("tableData");
 const itemCards = document.getElementById("item-cards");
+const checkoutBtn = document.getElementById("checkoutBtn");
 
 var cartItems = [];
 
@@ -130,19 +131,39 @@ function loadItems() {
 
   document.querySelectorAll(".btn-success").forEach((button) => {
     button.addEventListener("click", (event) => {
-      const itemCode = event.target.closest(".card").querySelector(".top-left").innerText;
+      const itemCode = event.target
+        .closest(".card")
+        .querySelector(".top-left").innerText;
       const item = items.find((i) => i.itemcode === itemCode);
-  
+
       let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-      cartItems.push(item);
+      
+      if (containsObject(item, cartItems)) {
+        Swal.fire("Already in cart!");
+      } else {
+        cartItems.push(item);
+        Swal.fire("Added to cart!");
+      }
+
       localStorage.setItem("cartItems", JSON.stringify(cartItems));
-  
-      Swal.fire("Added to cart!");
+
+      
       loadTableData();
     });
   });
-  
 }
+
+function containsObject(item, cartItems) {
+  var i;
+  for (i = 0; i < cartItems.length; i++) {
+      if (cartItems[i].itemcode === item.itemcode) {
+          return true;
+      }
+  }
+
+  return false;
+}
+
 
 function selectImage(itemtype) {
   const images = {
@@ -214,18 +235,26 @@ function setInnerHtml(item) {
 
   document.querySelectorAll(".btn-success").forEach((button) => {
     button.addEventListener("click", (event) => {
-      const itemCode = event.target.closest(".card").querySelector(".top-left").innerText;
+      const itemCode = event.target
+        .closest(".card")
+        .querySelector(".top-left").innerText;
       const item = items.find((i) => i.itemcode === itemCode);
-  
+
       let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-      cartItems.push(item);
+
+      if (containsObject(item, cartItems)) {
+        Swal.fire("Already in cart!");
+      } else {
+        cartItems.push(item);
+        Swal.fire("Added to cart!");
+      }
+
       localStorage.setItem("cartItems", JSON.stringify(cartItems));
-  
-      Swal.fire("Added to cart!");
+
+      
       loadTableData();
     });
   });
-  
 }
 
 function loadTableData() {
@@ -233,7 +262,7 @@ function loadTableData() {
   var url = currentUrl.split("/");
   if (url[url.length - 1] === "cart.html") {
     cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-    
+
     let tableContent = `
       <table class="table table-bordered table-striped">
         <thead>
@@ -254,7 +283,9 @@ function loadTableData() {
       let finalPrice = item.price - (item.price * item.discount) / 100;
       tableContent += `
         <tr>
-          <td><img src="${selectImage(item.itemtype)}" alt="${item.itemname}" class="img-fluid" width="50" /></td>
+          <td><img src="${selectImage(item.itemtype)}" alt="${
+        item.itemname
+      }" class="img-fluid" width="50" /></td>
           <td>${item.itemname}</td>
           <td>Rs.${item.price.toFixed(2)}</td>
           <td><input type="number" class="form-control quantity-input" data-index="${index}" value="1" min="1" /></td>
@@ -279,4 +310,18 @@ function loadTableData() {
       loadTableData();
     }
   }
+}
+
+if(checkoutBtn){
+  checkoutBtn.addEventListener("click",function(){
+    cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+    var total = 0.0;
+    cartItems.forEach(item=>{
+      let finalPrice = item.price - (item.price * item.discount) / 100;
+      total+=finalPrice;
+    })
+    Swal.fire(`Your total is Rs.${total}`);
+  })
+}else{
+  console.log("Element with ID 'checkoutBtn' not found.");
 }
