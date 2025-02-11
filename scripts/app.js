@@ -137,7 +137,7 @@ function loadItems() {
       const item = items.find((i) => i.itemcode === itemCode);
 
       let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-      
+
       if (containsObject(item, cartItems)) {
         Swal.fire("Already in cart!");
       } else {
@@ -147,7 +147,6 @@ function loadItems() {
 
       localStorage.setItem("cartItems", JSON.stringify(cartItems));
 
-      
       loadTableData();
     });
   });
@@ -156,14 +155,13 @@ function loadItems() {
 function containsObject(item, cartItems) {
   var i;
   for (i = 0; i < cartItems.length; i++) {
-      if (cartItems[i].itemcode === item.itemcode) {
-          return true;
-      }
+    if (cartItems[i].itemcode === item.itemcode) {
+      return true;
+    }
   }
 
   return false;
 }
-
 
 function selectImage(itemtype) {
   const images = {
@@ -251,7 +249,6 @@ function setInnerHtml(item) {
 
       localStorage.setItem("cartItems", JSON.stringify(cartItems));
 
-      
       loadTableData();
     });
   });
@@ -290,7 +287,7 @@ function loadTableData() {
           <td>Rs.${item.price.toFixed(2)}</td>
           <td><input type="number" class="form-control quantity-input" data-index="${index}" value="1" min="1" /></td>
           <td>${item.discount}%</td>
-          <td>Rs.${finalPrice.toFixed(2)}</td>
+          <td id="final-price">Rs.${finalPrice.toFixed(2)}</td>
           <td><button class="btn btn-danger delete-item" data-index="${index}">Delete</button></td>
         </tr>
       `;
@@ -309,19 +306,37 @@ function loadTableData() {
       localStorage.setItem("cartItems", JSON.stringify(cartItems));
       loadTableData();
     }
+
+    document.querySelectorAll(".quantity-input").forEach((item) => {
+      let finalPriceHtmlElement = item.parentElement.nextElementSibling.nextElementSibling;
+      item.addEventListener("input", function (event) {
+        finalPriceHtmlElement.innerHTML="Rs."+changeQuantity(event);
+      });
+    });
+
+    function changeQuantity(event) {
+      const index = event.target.getAttribute("data-index");
+      var newTotalPrice = event.target.value * cartItems[index].price;
+      let discountedPrice =
+        newTotalPrice - (newTotalPrice * cartItems[index].discount) / 100;
+      return discountedPrice;
+    }
   }
 }
 
-if(checkoutBtn){
-  checkoutBtn.addEventListener("click",function(){
+if (checkoutBtn) {
+  checkoutBtn.addEventListener("click", function () {
     cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
     var total = 0.0;
-    cartItems.forEach(item=>{
-      let finalPrice = item.price - (item.price * item.discount) / 100;
-      total+=finalPrice;
-    })
-    Swal.fire(`Your total is Rs.${total}`);
-  })
-}else{
+    
+    document.querySelectorAll("[id='final-price']").forEach((priceElement) => {
+      let priceString = priceElement.innerHTML;
+      let price = parseFloat(priceString.match(/[\d].+/)[0]); 
+      total += price;
+    });
+
+    Swal.fire(`Your total is Rs.${total.toFixed(2)}`);
+  });
+} else {
   console.log("Element with ID 'checkoutBtn' not found.");
 }
