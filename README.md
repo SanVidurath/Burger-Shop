@@ -7,3 +7,5 @@ This is a simple UI for a food shop with cart checkout and billing features
 * HTML
 * CSS
 * Javascript
+* Bootstrap
+* Font Awesome Icons
